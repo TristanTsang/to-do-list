@@ -1,11 +1,29 @@
 import "./styles.css";
-import { Project, ToDo } from "./toDoListLogic";
+import {
+  createProject,
+  createToDo,
+  deleteProject,
+  deleteToDo,
+} from "./toDoListLogic";
 const sidebar = document.querySelector("#sidebar");
 const content = document.querySelector("#content");
 let currentProject;
 const projects = [];
 
-function renderSideBar() {}
+function renderSideBar() {
+  const header = document.createElement("h3");
+  header.innerText = "Projects: ";
+  sidebar.innerHTML = "";
+  sidebar.appendChild(header);
+  for (
+    let i = 0;
+    i < JSON.parse(localStorage.getItem("projects")).length;
+    i++
+  ) {
+    renderProject(JSON.parse(localStorage.getItem("projects"))[i]);
+  }
+  renderAddProjectButton();
+}
 
 function renderAddProjectButton() {
   const div = document.createElement("div");
@@ -39,7 +57,7 @@ function renderAddItemPrompt() {
     let name = div.querySelector("input").value;
     if (name.trim() == "") return;
     div.remove();
-    renderProject(new Project(name));
+    renderProject(createProject(name));
     renderAddProjectButton();
   });
   cancelButton.innerText = "Cancel";
@@ -62,8 +80,13 @@ function renderProject(project) {
   text.innerText = "- " + project.name;
 
   div.addEventListener("click", () => {
+    let elements = sidebar.querySelectorAll(".list-button");
+    elements.forEach((element) => {
+      element.style.backgroundColor = "";
+    });
     div.style.backgroundColor = "#c2c2c2";
     renderProjectContent(project);
+
     currentProject = project;
   });
   div.appendChild(text);
@@ -74,7 +97,8 @@ function renderProject(project) {
   closeButton.innerText = "x";
 
   closeButton.addEventListener("click", () => {
-    div.remove();
+    deleteProject(project);
+    renderSideBar();
   });
 
   div.appendChild(closeButton);
@@ -104,7 +128,8 @@ function renderToDoListItem(toDo) {
   circle.style.border = "1px solid black";
   circle.style.marginRight = "10px";
   circle.addEventListener("click", () => {
-    div.remove();
+    currentProject = deleteToDo(currentProject, toDo);
+    renderProjectContent(currentProject);
   });
   div.appendChild(circle);
   const text = document.createElement("div");
@@ -117,6 +142,7 @@ function renderToDoListItem(toDo) {
   closeButton.innerText = "x";
 
   closeButton.addEventListener("click", () => {
+    deleteToDo(currentProject, toDo);
     div.remove();
   });
 
@@ -142,8 +168,8 @@ function renderAddToDoPrompt() {
     let name = div.querySelector("input").value;
     if (name.trim() == "") return;
     div.remove();
-    const toDo = new ToDo(name, "date", "priority", "1");
-    currentProject.toDoList.push(toDo);
+
+    const toDo = createToDo(currentProject, name);
     renderToDoListItem(toDo);
     renderAddToDoItemButton();
   });
@@ -173,5 +199,7 @@ function renderAddToDoItemButton() {
   content.appendChild(div);
 }
 
-renderProject(new Project("Tristan's Project"));
-renderAddProjectButton();
+if (!localStorage.getItem("projects")) {
+  localStorage.setItem("projects", JSON.stringify([]));
+}
+renderSideBar();
