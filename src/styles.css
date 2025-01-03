@@ -26,6 +26,7 @@ body {
 }
 #content {
   flex: 4;
+  padding: 0px 20px;
 }
 
 #footer {

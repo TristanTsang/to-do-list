@@ -1,6 +1,5 @@
-function ToDo(title, description, dueDate, priority, index) {
+function ToDo(title, dueDate, priority, index) {
   this.title = title;
-  this.description = description;
   this.dueDate = dueDate;
   this.priority = priority;
   this.index;
@@ -21,4 +20,4 @@ function deleteToDo(project, toDo) {
   project.toDoList.splice(toDo.index, 1);
 }
 
-export { Project };
+export { Project, ToDo };
