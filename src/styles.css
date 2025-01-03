@@ -1,0 +1,112 @@
+#header {
+  color: #e8e8e8;
+  background-color: #000022;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 30px 10px;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  margin: 0px;
+  background-color: #e8e8e8;
+}
+
+#outer {
+  display: flex;
+  flex: 1;
+}
+
+#sidebar {
+  background-color: #d6d6d6;
+  padding: 10px 20px;
+  flex: 1;
+}
+#content {
+  flex: 4;
+}
+
+#footer {
+  display: flex;
+  color: white;
+  font-size: large;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #fc814a;
+}
+
+html {
+  font-family: monospace;
+}
+
+h3 {
+  font-size: 20px;
+  margin: 0px;
+}
+
+.list-button {
+  cursor: pointer;
+  display: flex;
+  height: 16px;
+  align-items: center;
+  margin: 5px 0px;
+  border-radius: 5px;
+  padding: 15px 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.close-button {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.list-button:hover .close-button {
+  display: block; /* Show the button when the div is hovered */
+}
+.list-button:hover {
+  background-color: #c2c2c2;
+}
+
+form {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+}
+input[type="text"] {
+  margin: 0px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  height: 30px;
+  padding: 0px;
+}
+
+.button-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.add-button {
+  width: 50%;
+  background-color: rgb(151, 234, 174);
+  margin-right: 10px;
+  height: 30px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+.cancel-button {
+  width: 50%;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 10px;
+  background-color: rgb(246, 177, 177);
+  font-size: 16px;
+}
